@@ -1,0 +1,49 @@
+{
+  "actorId": "compass/google-maps-reviews-scraper",
+  "defaultConfig": {
+    "maxReviews": 50,
+    "reviewsSort": "newest",
+    "language": "en",
+    "personalData": true,
+    "maxConcurrency": 5
+  },
+  "clientTemplate": {
+    "startUrls": [
+      {
+        "url": "REPLACE_WITH_CLIENT_GOOGLE_MAPS_URL"
+      }
+    ],
+    "maxReviews": 20,
+    "reviewsSort": "newest",
+    "language": "en",
+    "personalData": true
+  },
+  "exampleClients": [
+    {
+      "clientId": "client_001",
+      "businessName": "Chez Marcel",
+      "googleMapsUrl": "https://www.google.com/maps/place/EXAMPLE_PLACE_ID",
+      "language": "fr",
+      "notes": "Quebec French restaurant — test with French reviews"
+    },
+    {
+      "clientId": "client_002",
+      "businessName": "The Golden Fork",
+      "googleMapsUrl": "https://www.google.com/maps/place/EXAMPLE_PLACE_ID",
+      "language": "en",
+      "notes": "Montreal fine dining — English responses"
+    }
+  ],
+  "scheduling": {
+    "frequency": "daily",
+    "timeUtc": "11:00",
+    "timezone": "America/Toronto",
+    "notes": "Runs at 6:00 AM EST / 11:00 UTC"
+  },
+  "costEstimate": {
+    "plan": "Personal ($49/mo)",
+    "includedPlatformCredits": 49,
+    "costPerRun": "~$0.50 per 100 reviews scraped",
+    "monthlyCostAt40Clients": "~$20-30 depending on review volume"
+  }
+}
