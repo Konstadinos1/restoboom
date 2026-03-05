@@ -1,0 +1,374 @@
+{
+  "version": "1.0",
+  "title": "RestoBoom — Mini Audit Questionnaire",
+  "description": "Interactive questionnaire for restaurant online presence audit",
+  "language": "bilingual",
+  "sections": [
+    {
+      "id": "intro",
+      "title": {
+        "fr": "Bienvenue",
+        "en": "Welcome"
+      },
+      "questions": [
+        {
+          "id": "restaurant_name",
+          "type": "text",
+          "label": {
+            "fr": "Nom du restaurant",
+            "en": "Restaurant name"
+          },
+          "placeholder": {
+            "fr": "Ex: Chez Mario",
+            "en": "Ex: Mario's Place"
+          },
+          "required": true
+        },
+        {
+          "id": "restaurant_type",
+          "type": "select",
+          "label": {
+            "fr": "Type de restaurant",
+            "en": "Restaurant type"
+          },
+          "options": [
+            { "value": "fast-food", "label": { "fr": "Fast Food", "en": "Fast Food" } },
+            { "value": "casual-dining", "label": { "fr": "Casual Dining", "en": "Casual Dining" } },
+            { "value": "quick-service", "label": { "fr": "Quick Service", "en": "Quick Service" } },
+            { "value": "cafe", "label": { "fr": "Café", "en": "Café" } },
+            { "value": "other", "label": { "fr": "Autre", "en": "Other" } }
+          ],
+          "required": false
+        }
+      ]
+    },
+    {
+      "id": "google_business_profile",
+      "title": {
+        "fr": "Google Business Profile",
+        "en": "Google Business Profile"
+      },
+      "description": {
+        "fr": "Évaluons la complétude de votre profil Google",
+        "en": "Let's evaluate your Google profile completeness"
+      },
+      "questions": [
+        {
+          "id": "gbp_active",
+          "type": "radio",
+          "label": {
+            "fr": "Votre profil GBP est-il actif?",
+            "en": "Is your GBP profile active?"
+          },
+          "options": [
+            { "value": "yes", "label": { "fr": "Oui", "en": "Yes" } },
+            { "value": "no", "label": { "fr": "Non", "en": "No" } }
+          ]
+        },
+        {
+          "id": "gbp_elements",
+          "type": "checkbox",
+          "label": {
+            "fr": "Éléments présents:",
+            "en": "Elements present:"
+          },
+          "options": [
+            { "value": "logo", "label": { "fr": "Photo de profil (logo)", "en": "Profile photo (logo)" } },
+            { "value": "interior", "label": { "fr": "Photos de l'intérieur", "en": "Interior photos" } },
+            { "value": "food", "label": { "fr": "Photos des plats", "en": "Food photos" } },
+            { "value": "hours", "label": { "fr": "Heures d'ouverture", "en": "Business hours" } },
+            { "value": "phone", "label": { "fr": "Numéro de téléphone", "en": "Phone number" } },
+            { "value": "address", "label": { "fr": "Adresse complète", "en": "Full address" } },
+            { "value": "website", "label": { "fr": "Site web", "en": "Website" } },
+            { "value": "menu", "label": { "fr": "Menu en ligne", "en": "Online menu" } },
+            { "value": "services", "label": { "fr": "Services (livraison, sur place, emporter)", "en": "Services (delivery, dine-in, takeout)" } }
+          ]
+        },
+        {
+          "id": "rating",
+          "type": "select",
+          "label": {
+            "fr": "Note moyenne sur Google",
+            "en": "Average Google rating"
+          },
+          "options": [
+            { "value": "5", "label": "⭐⭐⭐⭐⭐ (5.0)" },
+            { "value": "4.5", "label": "⭐⭐⭐⭐⭐ (4.5)" },
+            { "value": "4", "label": "⭐⭐⭐⭐ (4.0)" },
+            { "value": "3.5", "label": "⭐⭐⭐⭐ (3.5)" },
+            { "value": "3", "label": "⭐⭐⭐ (3.0)" },
+            { "value": "2.5", "label": "⭐⭐ (2.5)" },
+            { "value": "2", "label": "⭐⭐ (2.0)" },
+            { "value": "1", "label": "⭐ (1.0)" }
+          ]
+        },
+        {
+          "id": "reviews_count",
+          "type": "number",
+          "label": {
+            "fr": "Nombre total d'avis",
+            "en": "Total number of reviews"
+          },
+          "placeholder": {
+            "fr": "Ex: 45",
+            "en": "Ex: 45"
+          }
+        }
+      ]
+    },
+    {
+      "id": "social_media",
+      "title": {
+        "fr": "Réseaux Sociaux",
+        "en": "Social Media"
+      },
+      "description": {
+        "fr": "Vos comptes Facebook et Instagram",
+        "en": "Your Facebook and Instagram accounts"
+      },
+      "questions": [
+        {
+          "id": "facebook_active",
+          "type": "radio",
+          "label": {
+            "fr": "Page Facebook active?",
+            "en": "Active Facebook page?"
+          },
+          "options": [
+            { "value": "yes", "label": { "fr": "Oui", "en": "Yes" } },
+            { "value": "no", "label": { "fr": "Non", "en": "No" } }
+          ]
+        },
+        {
+          "id": "facebook_followers",
+          "type": "number",
+          "label": {
+            "fr": "Nombre d'abonnés Facebook",
+            "en": "Number of Facebook followers"
+          },
+          "placeholder": {
+            "fr": "Ex: 500",
+            "en": "Ex: 500"
+          }
+        },
+        {
+          "id": "instagram_active",
+          "type": "radio",
+          "label": {
+            "fr": "Compte Instagram actif?",
+            "en": "Active Instagram account?"
+          },
+          "options": [
+            { "value": "yes", "label": { "fr": "Oui", "en": "Yes" } },
+            { "value": "no", "label": { "fr": "Non", "en": "No" } }
+          ]
+        },
+        {
+          "id": "instagram_followers",
+          "type": "number",
+          "label": {
+            "fr": "Nombre d'abonnés Instagram",
+            "en": "Number of Instagram followers"
+          },
+          "placeholder": {
+            "fr": "Ex: 1200",
+            "en": "Ex: 1200"
+          }
+        },
+        {
+          "id": "posting_frequency",
+          "type": "select",
+          "label": {
+            "fr": "Fréquence de publication",
+            "en": "Posting frequency"
+          },
+          "options": [
+            { "value": "0", "label": { "fr": "Jamais", "en": "Never" } },
+            { "value": "1", "label": { "fr": "1-2 par mois", "en": "1-2 per month" } },
+            { "value": "2", "label": { "fr": "1 par semaine", "en": "1 per week" } },
+            { "value": "3", "label": { "fr": "2-3 par semaine", "en": "2-3 per week" } },
+            { "value": "4", "label": { "fr": "4+ par semaine", "en": "4+ per week" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "local_seo",
+      "title": {
+        "fr": "SEO Local",
+        "en": "Local SEO"
+      },
+      "description": {
+        "fr": "Votre visibilité sur les annuaires",
+        "en": "Your directory visibility"
+      },
+      "questions": [
+        {
+          "id": "maps_ranking",
+          "type": "select",
+          "label": {
+            "fr": "Classement sur Google Maps",
+            "en": "Google Maps ranking"
+          },
+          "options": [
+            { "value": "1", "label": { "fr": "Top 3 (excellente visibilité)", "en": "Top 3 (excellent visibility)" } },
+            { "value": "2", "label": { "fr": "4-10 (bonne visibilité)", "en": "4-10 (good visibility)" } },
+            { "value": "3", "label": { "fr": "11-20 (visibilité moyenne)", "en": "11-20 (average visibility)" } },
+            { "value": "4", "label": { "fr": "20+ (faible visibilité)", "en": "20+ (low visibility)" } },
+            { "value": "5", "label": { "fr": "Je ne sais pas", "en": "I don't know" } }
+          ]
+        },
+        {
+          "id": "directories",
+          "type": "checkbox",
+          "label": {
+            "fr": "Présence sur les annuaires:",
+            "en": "Presence on directories:"
+          },
+          "options": [
+            { "value": "yelp", "label": "Yelp" },
+            { "value": "tripadvisor", "label": "Trip Advisor" },
+            { "value": "pagesjaunes", "label": "PagesJaunes.ca" },
+            { "value": "foursquare", "label": "Foursquare" },
+            { "value": "bing", "label": "Bing Places" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "loyalty_program",
+      "title": {
+        "fr": "Programme de Fidélité",
+        "en": "Loyalty Program"
+      },
+      "description": {
+        "fr": "Vos efforts pour fidéliser les clients",
+        "en": "Your customer loyalty efforts"
+      },
+      "questions": [
+        {
+          "id": "loyalty_type",
+          "type": "radio",
+          "label": {
+            "fr": "Avez-vous un programme de fidélité?",
+            "en": "Do you have a loyalty program?"
+          },
+          "options": [
+            { "value": "paper", "label": { "fr": "Carte papier", "en": "Punch card" } },
+            { "value": "digital", "label": { "fr": "Numérique (app/email/SMS)", "en": "Digital (app/email/SMS)" } },
+            { "value": "none", "label": { "fr": "Aucun programme", "en": "No program" } }
+          ]
+        },
+        {
+          "id": "data_collection",
+          "type": "checkbox",
+          "label": {
+            "fr": "Collectez-vous les données clients?",
+            "en": "Do you collect customer data?"
+          },
+          "options": [
+            { "value": "phone", "label": { "fr": "Numéro de téléphone", "en": "Phone number" } },
+            { "value": "email", "label": { "fr": "Email", "en": "Email" } },
+            { "value": "birthday", "label": { "fr": "Anniversaire", "en": "Birthday" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contact",
+      "title": {
+        "fr": "Contact",
+        "en": "Contact"
+      },
+      "description": {
+        "fr": "Comment pouvons-nous vous envoyer les résultats?",
+        "en": "How can we send you the results?"
+      },
+      "questions": [
+        {
+          "id": "owner_name",
+          "type": "text",
+          "label": {
+            "fr": "Votre nom",
+            "en": "Your name"
+          },
+          "placeholder": {
+            "fr": "Ex: Jean Tremblay",
+            "en": "Ex: John Smith"
+          },
+          "required": true
+        },
+        {
+          "id": "owner_email",
+          "type": "email",
+          "label": {
+            "fr": "Votre email",
+            "en": "Your email"
+          },
+          "placeholder": {
+            "fr": "Ex: jean@restaurant.com",
+            "en": "Ex: john@restaurant.com"
+          },
+          "required": true
+        },
+        {
+          "id": "owner_phone",
+          "type": "tel",
+          "label": {
+            "fr": "Votre téléphone",
+            "en": "Your phone"
+          },
+          "placeholder": {
+            "fr": "Ex: 514-555-0123",
+            "en": "Ex: 514-555-0123"
+          }
+        },
+        {
+          "id": "monthly_revenue",
+          "type": "select",
+          "label": {
+            "fr": "Revenus mensuels approximatifs",
+            "en": "Approximate monthly revenue"
+          },
+          "options": [
+            { "value": "20000", "label": { "fr": "Moins de $20,000", "en": "Under $20,000" } },
+            { "value": "35000", "label": { "fr": "$20,000 - $50,000", "en": "$20,000 - $50,000" } },
+            { "value": "65000", "label": { "fr": "$50,000 - $100,000", "en": "$50,000 - $100,000" } },
+            { "value": "100000", "label": { "fr": "$100,000+", "en": "$100,000+" } }
+          ]
+        }
+      ]
+    }
+  ],
+  "scoring": {
+    "gbp_elements": {
+      "max_points": 30,
+      "points_per_item": 3.33
+    },
+    "rating": {
+      "max_points": 20,
+      "formula": "(rating / 5) * 20"
+    },
+    "reviews_count": {
+      "max_points": 10,
+      "formula": "min(reviews / 5, 10)"
+    },
+    "social_media": {
+      "max_points": 15,
+      "facebook_points": 5,
+      "instagram_points": 5,
+      "posting_points": 5,
+      "posting_formula": "(frequency / 4) * 5"
+    },
+    "local_seo": {
+      "max_points": 10,
+      "maps_ranking_formula": "((6 - rank) / 5) * 5",
+      "directories_formula": "(directories / 5) * 5"
+    },
+    "loyalty_program": {
+      "max_points": 15,
+      "digital_points": 15,
+      "paper_points": 7
+    }
+  }
+}

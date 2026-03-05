@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RestoBoom — Audit Gratuit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .progress-bar {
+            background: #f0f0f0;
+            height: 8px;
+            position: relative;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .section-desc {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .checkbox-group {
+            display: grid;
+            gap: 12px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .checkbox-item:hover {
+            background: #e9ecef;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .radio-group {
+            display: grid;
+            gap: 12px;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .radio-item:hover {
+            background: #e9ecef;
+        }
+
+        .radio-item input[type="radio"] {
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+
+        .info-box p {
+            color: #1565c0;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-prev {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-prev:hover {
+            background: #5a6268;
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(56, 239, 125, 0.4);
+        }
+
+        .summary {
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 30px auto;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .score-label {
+            font-size: 0.4em;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .recommendations {
+            text-align: left;
+            margin-top: 30px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .recommendations h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .recommendations ul {
+            list-style: none;
+        }
+
+        .recommendations li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+            color: #555;
+        }
+
+        .recommendations li:before {
+            content: "💡 ";
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .language-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .language-toggle button {
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .language-toggle button:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-toggle">
+        <button onclick="toggleLanguage()">FR/EN</button>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 id="title">RestoBoom — Audit Gratuit</h1>
+            <p id="subtitle">Analyse de présence en ligne pour restaurants</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress"></div>
+        </div>
+
+        <div class="content">
+            <!-- Section 0: Intro -->
+            <div class="section active" id="section-0">
+                <h2 class="section-title">
+                    <span class="section-number">0</span>
+                    <span class="title-text">Bienvenue</span>
+                </h2>
+                <p class="section-desc" id="intro-desc">
+                    Ce mini audit gratuit évaluera votre présence en ligne et identifera les opportunités pour augmenter vos revenus.
+                </p>
+                <div class="form-group">
+                    <label class="form-label" id="restaurant-name-label">Nom du restaurant</label>
+                    <input type="text" class="form-input" id="restaurant-name" placeholder="Ex: Chez Mario">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" id="restaurant-type-label">Type de restaurant</label>
+                    <select class="form-select" id="restaurant-type">
+                        <option value="">Sélectionnez...</option>
+                        <option value="fast-food">Fast Food</option>
+                        <option value="casual-dining">Casual Dining</option>
+                        <option value="quick-service">Quick Service</option>
+                        <option value="cafe">Café</option>
+                        <option value="other">Autre</option>
+                    </select>
+                </div>
+                <div class="buttons">
+                    <div></div>
+                    <button class="btn btn-next" onclick="nextSection()" id="start-btn">Commencer l'audit →</button>
+                </div>
+            </div>
+
+            <!-- Section 1: Google Business Profile -->
+            <div class="section" id="section-1">
+                <h2 class="section-title">
+                    <span class="section-number">1</span>
+                    <span class="title-text">Google Business Profile</span>
+                </h2>
+                <p class="section-desc" id="gbp-desc">Évaluons la complétude de votre profil Google</p>
+
+                <div class="form-group">
+                    <label class="form-label" id="gbp-profile-label">Votre profil GBP est-il actif?</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="gbp-active" value="yes">
+                            <span id="yes-fr">Oui</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="gbp-active" value="no">
+                            <span id="no-fr">Non</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group" id="gbp-elements">
+                    <label class="form-label" id="gbp-elements-label">Éléments présents:</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="gbp-elements" value="logo">
+                            <span id="logo-fr">Photo de profil (logo)</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="gbp-elements" value="interior">
+                            <span id="interior-fr">Photos de l'intérieur</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="gbp-elements" value="food">
+                            <span id="food-fr">Photos des plats</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="gbp-elements" value="hours">
+                            <span id="hours-fr">Heures d'ouverture</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="gbp-elements" value="phone">
+                            <span id="phone-fr">Numéro de téléphone</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="gbp-elements" value="address">
+                            <span id="address-fr">Adresse complète</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="gbp-elements" value="website">
+                            <span id="website-fr">Site web</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="gbp-elements" value="menu">
+                            <span id="menu-fr">Menu en ligne</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="gbp-elements" value="services">
+                            <span id="services-fr">Services (livraison, sur place, emporter)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="rating-label">Note moyenne sur Google</label>
+                    <select class="form-select" id="rating">
+                        <option value="">Sélectionnez...</option>
+                        <option value="5">⭐⭐⭐⭐⭐ (5.0)</option>
+                        <option value="4.5">⭐⭐⭐⭐⭐ (4.5)</option>
+                        <option value="4">⭐⭐⭐⭐ (4.0)</option>
+                        <option value="3.5">⭐⭐⭐⭐ (3.5)</option>
+                        <option value="3">⭐⭐⭐ (3.0)</option>
+                        <option value="2.5">⭐⭐ (2.5)</option>
+                        <option value="2">⭐⭐ (2.0)</option>
+                        <option value="1">⭐ (1.0)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="reviews-count-label">Nombre total d'avis</label>
+                    <input type="number" class="form-input" id="reviews-count" placeholder="Ex: 45">
+                </div>
+
+                <div class="info-box">
+                    <p id="gbp-tip">💡 Un profil complet sur Google est 7× plus susceptible de recevoir des clics.</p>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-prev" onclick="prevSection()" id="back-fr">← Retour</button>
+                    <button class="btn btn-next" onclick="nextSection()" id="next-fr">Continuer →</button>
+                </div>
+            </div>
+
+            <!-- Section 2: Social Media -->
+            <div class="section" id="section-2">
+                <h2 class="section-title">
+                    <span class="section-number">2</span>
+                    <span class="title-text">Réseaux Sociaux</span>
+                </h2>
+                <p class="section-desc" id="social-desc">Vos comptes Facebook et Instagram</p>
+
+                <div class="form-group">
+                    <label class="form-label" id="facebook-label">Page Facebook active?</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="facebook" value="yes">
+                            <span id="yes2-fr">Oui</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="facebook" value="no">
+                            <span id="no2-fr">Non</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="facebook-followers-label">Nombre d'abonnés Facebook</label>
+                    <input type="number" class="form-input" id="facebook-followers" placeholder="Ex: 500">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="instagram-label">Compte Instagram actif?</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="instagram" value="yes">
+                            <span id="yes3-fr">Oui</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="instagram" value="no">
+                            <span id="no3-fr">Non</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="instagram-followers-label">Nombre d'abonnés Instagram</label>
+                    <input type="number" class="form-input" id="instagram-followers" placeholder="Ex: 1200">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="posting-freq-label">Fréquence de publication</label>
+                    <select class="form-select" id="posting-freq">
+                        <option value="">Sélectionnez...</option>
+                        <option value="0">Jamais</option>
+                        <option value="1">1-2 par mois</option>
+                        <option value="2">1 par semaine</option>
+                        <option value="3">2-3 par semaine</option>
+                        <option value="4">4+ par semaine</option>
+                    </select>
+                </div>
+
+                <div class="info-box">
+                    <p id="social-tip">💡 Les restaurants qui publient 3-5 fois par semaine ont 20-30% plus d'engagement.</p>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-prev" onclick="prevSection()" id="back2-fr">← Retour</button>
+                    <button class="btn btn-next" onclick="nextSection()" id="next2-fr">Continuer →</button>
+                </div>
+            </div>
+
+            <!-- Section 3: Local SEO -->
+            <div class="section" id="section-3">
+                <h2 class="section-title">
+                    <span class="section-number">3</span>
+                    <span class="title-text">SEO Local</span>
+                </h2>
+                <p class="section-desc" id="seo-desc">Votre visibilité sur les annuaires</p>
+
+                <div class="form-group">
+                    <label class="form-label" id="maps-rank-label">Classement sur Google Maps</label>
+                    <select class="form-select" id="maps-rank">
+                        <option value="">Sélectionnez...</option>
+                        <option value="1">Top 3 (excellente visibilité)</option>
+                        <option value="2">4-10 (bonne visibilité)</option>
+                        <option value="3">11-20 (visibilité moyenne)</option>
+                        <option value="4">20+ (faible visibilité)</option>
+                        <option value="5">Je ne sais pas</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="directories-label">Présence sur les annuaires:</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="directories" value="yelp">
+                            Yelp
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="directories" value="tripadvisor">
+                            Trip Advisor
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="directories" value="pagesjaunes">
+                            PagesJaunes.ca
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="directories" value="foursquare">
+                            Foursquare
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="directories" value="bing">
+                            Bing Places
+                        </label>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <p id="seo-tip">💡 86% des vues Google Business proviennent de recherches "près de moi".</p>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-prev" onclick="prevSection()" id="back3-fr">← Retour</button>
+                    <button class="btn btn-next" onclick="nextSection()" id="next3-fr">Continuer →</button>
+                </div>
+            </div>
+
+            <!-- Section 4: Loyalty Program -->
+            <div class="section" id="section-4">
+                <h2 class="section-title">
+                    <span class="section-number">4</span>
+                    <span class="title-text">Programme de Fidélité</span>
+                </h2>
+                <p class="section-desc" id="loyalty-desc">Vos efforts pour fidéliser les clients</p>
+
+                <div class="form-group">
+                    <label class="form-label" id="loyalty-program-label">Avez-vous un programme de fidélité?</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="loyalty" value="paper">
+                            <span id="paper-fr">Carte papier</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="loyalty" value="digital">
+                            <span id="digital-fr">Numérique (app/email/SMS)</span>
+                        </label>
+                        <label class="radio-item">
+                            <input type="radio" name="loyalty" value="none">
+                            <span id="none-fr">Aucun programme</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="collect-data-label">Collectez-vous les données clients?</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="data-collection" value="phone">
+                            Numéro de téléphone
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="data-collection" value="email">
+                            Email
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="data-collection" value="birthday">
+                            Anniversaire
+                        </label>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <p id="loyalty-tip">💡 Les membres d'un programme de fidélité visitent 20% plus souvent et dépensent 20% de plus.</p>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-prev" onclick="prevSection()" id="back4-fr">← Retour</button>
+                    <button class="btn btn-next" onclick="nextSection()" id="next4-fr">Continuer →</button>
+                </div>
+            </div>
+
+            <!-- Section 5: Contact Info -->
+            <div class="section" id="section-5">
+                <h2 class="section-title">
+                    <span class="section-number">5</span>
+                    <span class="title-text">Contact</span>
+                </h2>
+                <p class="section-desc" id="contact-desc">Comment pouvons-nous vous envoyer les résultats?</p>
+
+                <div class="form-group">
+                    <label class="form-label" id="owner-name-label">Votre nom</label>
+                    <input type="text" class="form-input" id="owner-name" placeholder="Ex: Jean Tremblay">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="owner-email-label">Votre email</label>
+                    <input type="email" class="form-input" id="owner-email" placeholder="Ex: jean@restaurant.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="owner-phone-label">Votre téléphone</label>
+                    <input type="tel" class="form-input" id="owner-phone" placeholder="Ex: 514-555-0123">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" id="monthly-revenue-label">Revenus mensuels approximatifs</label>
+                    <select class="form-select" id="monthly-revenue">
+                        <option value="">Sélectionnez...</option>
+                        <option value="20000">Moins de $20,000</option>
+                        <option value="35000">$20,000 - $50,000</option>
+                        <option value="65000">$50,000 - $100,000</option>
+                        <option value="100000">$100,000+</option>
+                    </select>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn btn-prev" onclick="prevSection()" id="back5-fr">← Retour</button>
+                    <button class="btn btn-submit" onclick="submitAudit()" id="submit-fr">📊 Obtenir mes résultats</button>
+                </div>
+            </div>
+
+            <!-- Section 6: Results -->
+            <div class="section" id="section-6">
+                <div class="summary">
+                    <h2 class="section-title" style="justify-content: center;">
+                        <span class="title-text" id="results-title">Vos Résultats</span>
+                    </h2>
+                    <p class="section-desc" id="results-subtitle">Voici votre audit de présence en ligne</p>
+
+                    <div class="score-circle">
+                        <div id="score-value">0</div>
+                        <div class="score-label" id="score-label-fr">/100</div>
+                    </div>
+
+                    <div class="recommendations">
+                        <h3 id="recs-title">Recommandations Prioritaires</h3>
+                        <ul id="recommendations-list">
+                        </ul>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 30px; background: #e8f5e9; border-left-color: #4caf50;">
+                        <p id="impact-msg">💰 Impact estimé sur vos revenus: +$2,500 à $10,000/mois</p>
+                    </div>
+
+                    <div class="buttons" style="justify-content: center; margin-top: 30px;">
+                        <button class="btn btn-next" onclick="restartAudit()" id="restart-fr">Recommencer l'audit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSection = 0;
+        const totalSections = 6;
+        let currentLang = 'fr';
+
+        const translations = {
+            fr: {
+                title: "RestoBoom — Audit Gratuit",
+                subtitle: "Analyse de présence en ligne pour restaurants",
+                introDesc: "Ce mini audit gratuit évaluera votre présence en ligne et identifera les opportunités pour augmenter vos revenus.",
+                restaurantNameLabel: "Nom du restaurant",
+                restaurantTypeLabel: "Type de restaurant",
+                startBtn: "Commencer l'audit →",
+                gbpDesc: "Évaluons la complétude de votre profil Google",
+                gbpProfileLabel: "Votre profil GBP est-il actif?",
+                yes: "Oui",
+                no: "Non",
+                gbpElementsLabel: "Éléments présents:",
+                ratingLabel: "Note moyenne sur Google",
+                reviewsCountLabel: "Nombre total d'avis",
+                gbpTip: "💡 Un profil complet sur Google est 7× plus susceptible de recevoir des clics.",
+                socialDesc: "Vos comptes Facebook et Instagram",
+                facebookLabel: "Page Facebook active?",
+                facebookFollowersLabel: "Nombre d'abonnés Facebook",
+                instagramLabel: "Compte Instagram actif?",
+                instagramFollowersLabel: "Nombre d'abonnés Instagram",
+                postingFreqLabel: "Fréquence de publication",
+                socialTip: "💡 Les restaurants qui publient 3-5 fois par semaine ont 20-30% plus d'engagement.",
+                seoDesc: "Votre visibilité sur les annuaires",
+                mapsRankLabel: "Classement sur Google Maps",
+                seoTip: "💡 86% des vues Google Business proviennent de recherches \"près de moi\".",
+                loyaltyDesc: "Vos efforts pour fidéliser les clients",
+                loyaltyProgramLabel: "Avez-vous un programme de fidélité?",
+                loyaltyTip: "💡 Les membres d'un programme de fidélité visitent 20% plus souvent et dépensent 20% de plus.",
+                contactDesc: "Comment pouvons-nous vous envoyer les résultats?",
+                ownerNameLabel: "Votre nom",
+                ownerEmailLabel: "Votre email",
+                ownerPhoneLabel: "Votre téléphone",
+                monthlyRevenueLabel: "Revenus mensuels approximatifs",
+                submitBtn: "📊 Obtenir mes résultats",
+                back: "← Retour",
+                next: "Continuer →",
+                resultsTitle: "Vos Résultats",
+                resultsSubtitle: "Voici votre audit de présence en ligne",
+                scoreLabel: "/100",
+                recsTitle: "Recommandations Prioritaires",
+                impactMsg: "💰 Impact estimé sur vos revenus: +$2,500 à $10,000/mois",
+                restartBtn: "Recommencer l'audit"
+            },
+            en: {
+                title: "RestoBoom — Free Audit",
+                subtitle: "Online presence analysis for restaurants",
+                introDesc: "This free mini audit will evaluate your online presence and identify opportunities to increase your revenue.",
+                restaurantNameLabel: "Restaurant name",
+                restaurantTypeLabel: "Restaurant type",
+                startBtn: "Start audit →",
+                gbpDesc: "Let's evaluate your Google profile completeness",
+                gbpProfileLabel: "Is your GBP profile active?",
+                yes: "Yes",
+                no: "No",
+                gbpElementsLabel: "Elements present:",
+                ratingLabel: "Average Google rating",
+                reviewsCountLabel: "Total number of reviews",
+                gbpTip: "💡 A complete Google profile is 7× more likely to receive clicks.",
+                socialDesc: "Your Facebook and Instagram accounts",
+                facebookLabel: "Active Facebook page?",
+                facebookFollowersLabel: "Number of Facebook followers",
+                instagramLabel: "Active Instagram account?",
+                instagramFollowersLabel: "Number of Instagram followers",
+                postingFreqLabel: "Posting frequency",
+                socialTip: "💡 Restaurants posting 3-5 times per week have 20-30% more engagement.",
+                seoDesc: "Your directory visibility",
+                mapsRankLabel: "Google Maps ranking",
+                seoTip: "💡 86% of GBP views come from \"near me\" searches.",
+                loyaltyDesc: "Your customer loyalty efforts",
+                loyaltyProgramLabel: "Do you have a loyalty program?",
+                loyaltyTip: "💡 Loyalty program members visit 20% more often and spend 20% more.",
+                contactDesc: "How can we send you the results?",
+                ownerNameLabel: "Your name",
+                ownerEmailLabel: "Your email",
+                ownerPhoneLabel: "Your phone",
+                monthlyRevenueLabel: "Approximate monthly revenue",
+                submitBtn: "📊 Get my results",
+                back: "← Back",
+                next: "Continue →",
+                resultsTitle: "Your Results",
+                resultsSubtitle: "Here's your online presence audit",
+                scoreLabel: "/100",
+                recsTitle: "Priority Recommendations",
+                impactMsg: "💰 Estimated revenue impact: +$2,500 to $10,000/month",
+                restartBtn: "Restart audit"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'fr' ? 'en' : 'fr';
+            const t = translations[currentLang];
+
+            document.getElementById('title').textContent = t.title;
+            document.getElementById('subtitle').textContent = t.subtitle;
+            document.getElementById('intro-desc').textContent = t.introDesc;
+            document.getElementById('restaurant-name-label').textContent = t.restaurantNameLabel;
+            document.getElementById('restaurant-type-label').textContent = t.restaurantTypeLabel;
+            document.getElementById('start-btn').textContent = t.startBtn;
+            document.getElementById('gbp-desc').textContent = t.gbpDesc;
+            document.getElementById('gbp-profile-label').textContent = t.gbpProfileLabel;
+            document.getElementById('yes-fr').textContent = t.yes;
+            document.getElementById('no-fr').textContent = t.no;
+            document.getElementById('yes2-fr').textContent = t.yes;
+            document.getElementById('no2-fr').textContent = t.no;
+            document.getElementById('yes3-fr').textContent = t.yes;
+            document.getElementById('no3-fr').textContent = t.no;
+            document.getElementById('gbp-elements-label').textContent = t.gbpElementsLabel;
+            document.getElementById('rating-label').textContent = t.ratingLabel;
+            document.getElementById('reviews-count-label').textContent = t.reviewsCountLabel;
+            document.getElementById('gbp-tip').textContent = t.gbpTip;
+            document.getElementById('social-desc').textContent = t.socialDesc;
+            document.getElementById('facebook-label').textContent = t.facebookLabel;
+            document.getElementById('facebook-followers-label').textContent = t.facebookFollowersLabel;
+            document.getElementById('instagram-label').textContent = t.instagramLabel;
+            document.getElementById('instagram-followers-label').textContent = t.instagramFollowersLabel;
+            document.getElementById('posting-freq-label').textContent = t.postingFreqLabel;
+            document.getElementById('social-tip').textContent = t.socialTip;
+            document.getElementById('seo-desc').textContent = t.seoDesc;
+            document.getElementById('maps-rank-label').textContent = t.mapsRankLabel;
+            document.getElementById('seo-tip').textContent = t.seoTip;
+            document.getElementById('loyalty-desc').textContent = t.loyaltyDesc;
+            document.getElementById('loyalty-program-label').textContent = t.loyaltyProgramLabel;
+            document.getElementById('loyalty-tip').textContent = t.loyaltyTip;
+            document.getElementById('contact-desc').textContent = t.contactDesc;
+            document.getElementById('owner-name-label').textContent = t.ownerNameLabel;
+            document.getElementById('owner-email-label').textContent = t.ownerEmailLabel;
+            document.getElementById('owner-phone-label').textContent = t.ownerPhoneLabel;
+            document.getElementById('monthly-revenue-label').textContent = t.monthlyRevenueLabel;
+            document.getElementById('submit-fr').textContent = t.submitBtn;
+            document.getElementById('back-fr').textContent = t.back;
+            document.getElementById('back2-fr').textContent = t.back;
+            document.getElementById('back3-fr').textContent = t.back;
+            document.getElementById('back4-fr').textContent = t.back;
+            document.getElementById('back5-fr').textContent = t.back;
+            document.getElementById('next-fr').textContent = t.next;
+            document.getElementById('next2-fr').textContent = t.next;
+            document.getElementById('next3-fr').textContent = t.next;
+            document.getElementById('next4-fr').textContent = t.next;
+            document.getElementById('results-title').textContent = t.resultsTitle;
+            document.getElementById('results-subtitle').textContent = t.resultsSubtitle;
+            document.getElementById('score-label-fr').textContent = t.scoreLabel;
+            document.getElementById('recs-title').textContent = t.recsTitle;
+            document.getElementById('impact-msg').textContent = t.impactMsg;
+            document.getElementById('restart-fr').textContent = t.restartBtn;
+
+            // Update radio labels
+            document.getElementById('paper-fr').textContent = currentLang === 'fr' ? 'Carte papier' : 'Punch card';
+            document.getElementById('digital-fr').textContent = currentLang === 'fr' ? 'Numérique (app/email/SMS)' : 'Digital (app/email/SMS)';
+            document.getElementById('none-fr').textContent = currentLang === 'fr' ? 'Aucun programme' : 'No program';
+            document.getElementById('collect-data-label').textContent = currentLang === 'fr' ? 'Collectez-vous les données clients?' : 'Do you collect customer data?';
+        }
+
+        function updateProgress() {
+            const progress = ((currentSection) / totalSections) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        function showSection(sectionNum) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('section-' + sectionNum).classList.add('active');
+            currentSection = sectionNum;
+            updateProgress();
+        }
+
+        function nextSection() {
+            if (currentSection < totalSections - 1) {
+                showSection(currentSection + 1);
+            }
+        }
+
+        function prevSection() {
+            if (currentSection > 0) {
+                showSection(currentSection - 1);
+            }
+        }
+
+        function calculateScore() {
+            let score = 0;
+            let maxScore = 100;
+            const recommendations = [];
+
+            // GBP Elements (up to 30 points)
+            const gbpElements = document.querySelectorAll('input[name="gbp-elements"]:checked');
+            score += Math.min(gbpElements.length * 3.33, 30);
+
+            if (gbpElements.length < 9) {
+                recommendations.push(currentLang === 'fr' ? "Complétez votre profil Google Business Profile" : "Complete your Google Business Profile");
+            }
+
+            // Rating (up to 20 points)
+            const rating = parseFloat(document.getElementById('rating').value) || 0;
+            score += (rating / 5) * 20;
+
+            if (rating < 4) {
+                recommendations.push(currentLang === 'fr' ? "Améliorez votre note Google (visez 4.0+)" : "Improve your Google rating (aim for 4.0+)");
+            }
+
+            // Reviews count (up to 10 points)
+            const reviewsCount = parseInt(document.getElementById('reviews-count').value) || 0;
+            score += Math.min(reviewsCount / 5, 10);
+
+            if (reviewsCount < 20) {
+                recommendations.push(currentLang === 'fr' ? "Générez plus d'avis clients" : "Generate more customer reviews");
+            }
+
+            // Social Media (up to 15 points)
+            const facebook = document.querySelector('input[name="facebook"]:checked');
+            const instagram = document.querySelector('input[name="instagram"]:checked');
+            if (facebook && facebook.value === 'yes') score += 5;
+            if (instagram && instagram.value === 'yes') score += 5;
+
+            const postingFreq = parseInt(document.getElementById('posting-freq').value) || 0;
+            score += (postingFreq / 4) * 5;
+
+            if (!facebook || facebook.value !== 'yes') {
+                recommendations.push(currentLang === 'fr' ? "Créez une page Facebook professionnelle" : "Create a professional Facebook page");
+            }
+            if (!instagram || instagram.value !== 'yes') {
+                recommendations.push(currentLang === 'fr' ? "Créez un compte Instagram" : "Create an Instagram account");
+            }
+            if (postingFreq < 3) {
+                recommendations.push(currentLang === 'fr' ? "Publiez plus régulièrement (3-5x/sem)" : "Post more regularly (3-5x/week)");
+            }
+
+            // Local SEO (up to 10 points)
+            const mapsRank = parseInt(document.getElementById('maps-rank').value) || 0;
+            score += ((6 - mapsRank) / 5) * 5;
+
+            const directories = document.querySelectorAll('input[name="directories"]:checked');
+            score += (directories.length / 5) * 5;
+
+            if (mapsRank > 2) {
+                recommendations.push(currentLang === 'fr' ? "Améliorez votre classement Google Maps" : "Improve your Google Maps ranking");
+            }
+            if (directories.length < 3) {
+                recommendations.push(currentLang === 'fr' ? "Inscrivez-vous sur plus d'annuaires" : "List your business on more directories");
+            }
+
+            // Loyalty Program (up to 15 points)
+            const loyalty = document.querySelector('input[name="loyalty"]:checked');
+            if (loyalty && loyalty.value === 'digital') score += 15;
+            else if (loyalty && loyalty.value === 'paper') score += 7;
+
+            if (!loyalty || loyalty.value === 'none') {
+                recommendations.push(currentLang === 'fr' ? "Mettez en place un programme de fidélité" : "Implement a loyalty program");
+            }
+
+            return { score: Math.round(score), recommendations };
+        }
+
+        function submitAudit() {
+            const results = calculateScore();
+            document.getElementById('score-value').textContent = results.score;
+
+            const recsList = document.getElementById('recommendations-list');
+            recsList.innerHTML = '';
+
+            if (results.recommendations.length === 0) {
+                const li = document.createElement('li');
+                li.textContent = currentLang === 'fr' ? "Excellent! Votre présence en ligne est très bien optimisée." : "Excellent! Your online presence is well optimized.";
+                recsList.appendChild(li);
+            } else {
+                results.recommendations.forEach(rec => {
+                    const li = document.createElement('li');
+                    li.textContent = rec;
+                    recsList.appendChild(li);
+                });
+            }
+
+            showSection(6);
+
+            // Log the data (in production, send to server)
+            const auditData = {
+                restaurantName: document.getElementById('restaurant-name').value,
+                restaurantType: document.getElementById('restaurant-type').value,
+                score: results.score,
+                recommendations: results.recommendations,
+                contact: {
+                    name: document.getElementById('owner-name').value,
+                    email: document.getElementById('owner-email').value,
+                    phone: document.getElementById('owner-phone').value,
+                    revenue: document.getElementById('monthly-revenue').value
+                }
+            };
+
+            console.log('Audit Data:', auditData);
+        }
+
+        function restartAudit() {
+            showSection(0);
+            // Reset form fields
+            document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="number"]').forEach(el => el.value = '');
+            document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+            document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(el => el.checked = false);
+        }
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>
