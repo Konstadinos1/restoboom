@@ -1040,10 +1040,141 @@
                     </div>
 
                     <div class="buttons" style="justify-content: center; margin-top: 30px;">
+                        <button class="btn btn-pdf" onclick="generatePDF()" id="download-pdf-fr" style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);">📄 Télécharger le rapport PDF</button>
                         <button class="btn btn-next" onclick="restartAudit()" id="restart-fr">Recommencer l'audit</button>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- PDF Report Template -->
+    <div id="pdf-report" style="display: none; background: white; padding: 40px; max-width: 800px; margin: 0 auto;">
+        <div style="text-align: center; padding: 30px 0; border-bottom: 3px solid #1a1a2e; margin-bottom: 30px;">
+            <div style="font-size: 2.5em; font-weight: bold; color: #1a1a2e;">🎯 RestoBoom</div>
+            <h1 style="font-size: 1.8em; color: #333; margin: 10px 0;" id="pdf-title">Rapport d'Audit QSR - Transformation Numérique</h1>
+            <div style="color: #666; margin-top: 10px;" id="pdf-date"></div>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 40px; border-radius: 10px; text-align: center; margin: 20px 0;">
+            <div style="font-size: 3.5em; font-weight: bold;">Score de Maturité Numérique</div>
+            <div style="font-size: 6em; font-weight: bold;" id="pdf-total-score">0</div>
+            <div style="font-size: 1.2em; opacity: 0.9;">/100</div>
+        </div>
+
+        <div style="margin: 30px 0;">
+            <h3 style="color: #1a1a2e; border-left: 4px solid #1a1a2e; padding-left: 15px; margin-bottom: 15px;">Informations de l'Entreprise</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0;">
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;" id="pdf-company-name-label">Nom de l'entreprise</div>
+                    <div style="font-weight: 600; color: #333; font-size: 1.1em;" id="pdf-company-name">-</div>
+                </div>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;" id="pdf-industry-label">Type d'entreprise</div>
+                    <div style="font-weight: 600; color: #333; font-size: 1.1em;" id="pdf-industry">-</div>
+                </div>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;" id="pdf-locations-label">Nombre d'emplacements</div>
+                    <div style="font-weight: 600; color: #333; font-size: 1.1em;" id="pdf-locations">-</div>
+                </div>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <div style="font-size: 0.85em; color: #666; margin-bottom: 5px;" id="pdf-revenue-label">Revenus mensuels</div>
+                    <div style="font-weight: 600; color: #333; font-size: 1.1em;" id="pdf-revenue">-</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin: 30px 0;">
+            <h3 style="color: #1a1a2e; border-left: 4px solid #1a1a2e; padding-left: 15px; margin-bottom: 15px;">Scores par Pilier</h3>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 2em; margin-bottom: 5px;">📊</div>
+                    <div style="font-weight: 600;">Stratégie</div>
+                    <div style="font-size: 3em; font-weight: bold;" id="pdf-score-strategic">0</div>
+                    <div style="font-size: 0.9em; opacity: 0.9;">/25</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 25px; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 2em; margin-bottom: 5px;">🔧</div>
+                    <div style="font-weight: 600;">Technique</div>
+                    <div style="font-size: 3em; font-weight: bold;" id="pdf-score-tech">0</div>
+                    <div style="font-size: 0.9em; opacity: 0.9;">/25</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #00b4db 0%, #0083fe 100%); color: white; padding: 25px; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 2em; margin-bottom: 5px;">📱</div>
+                    <div style="font-weight: 600;">Marketing</div>
+                    <div style="font-size: 3em; font-weight: bold;" id="pdf-score-marketing">0</div>
+                    <div style="font-size: 0.9em; opacity: 0.9;">/25</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #10b981 0%, #956dad 100%); color: white; padding: 25px; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 2em; margin-bottom: 5px;">🤖</div>
+                    <div style="font-weight: 600;">IA & Automation</div>
+                    <div style="font-size: 3em; font-weight: bold;" id="pdf-score-ai">0</div>
+                    <div style="font-size: 0.9em; opacity: 0.9;">/25</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin: 30px 0;">
+            <h3 style="color: #1a1a2e; border-left: 4px solid #1a1a2e; padding-left: 15px; margin-bottom: 15px;">📋 Recommandations Prioritaires</h3>
+            <ul style="list-style: none; padding: 0;" id="pdf-recs-list"></ul>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin: 30px 0; text-align: center;">
+            <h3 style="margin-bottom: 20px;">🎁 Offre Exclusive RestoBoom</h3>
+            <p style="margin: 20px 0; line-height: 1.6;" id="pdf-offer-desc">
+                Basé sur cet audit, RestoBoom offre une approche intégrée couvrant vos 4 piliers de maturité numérique :
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 8px;">
+                    <div style="font-weight: 600; margin-bottom: 5px;">Consultation Stratégique</div>
+                    <div style="font-size: 0.9em; color: rgba(255,255,255,0.9);">Planification marketing, KPIs, intelligence concurrentielle</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 8px;">
+                    <div style="font-weight: 600; margin-bottom: 5px;">Implementation Technique</div>
+                    <div style="font-size: 0.9em; color: rgba(255,255,255,0.9);">Stack audit, intégrations, déploiement IA</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 8px;">
+                    <div style="font-weight: 600; margin-bottom: 5px;">Services Marketing</div>
+                    <div style="font-size: 0.9em; color: rgba(255,255,255,0.9);">Gestion réseaux sociaux, email, SEO, réponses avis</div>
+                </div>
+                <div style="background: rgba(255,255,255,0.15); padding: 15px; border-radius: 8px;">
+                    <div style="font-weight: 600; margin-bottom: 5px;">Automatisation IA</div>
+                    <div style="font-size: 0.9em; color: rgba(255,255,255,0.9);">Agents vocaux, génération contenu, service 24/7, conformité Bill 96</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin: 30px 0; padding: 30px; border-top: 2px solid #e0e0e0;">
+            <h3 style="color: #1a1a2e; border-left: 4px solid #1a1a2e; padding-left: 15px; margin-bottom: 15px;">Piliers Évalués</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0;">
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <div style="font-size: 0.9em; color: #666; margin-bottom: 5px;" id="pdf-strategic-summary">Stratégie Marketing</div>
+                    <div style="font-size: 0.8em; color: #555;" id="pdf-strategic-details">-</div>
+                </div>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <div style="font-size: 0.9em; color: #666; margin-bottom: 5px;" id="pdf-tech-summary">Stack Technique</div>
+                    <div style="font-size: 0.8em; color: #555;" id="pdf-tech-details">-</div>
+                </div>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <div style="font-size: 0.9em; color: #666; margin-bottom: 5px;" id="pdf-marketing-summary">Services Marketing</div>
+                    <div style="font-size: 0.8em; color: #555;" id="pdf-marketing-details">-</div>
+                </div>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <div style="font-size: 0.9em; color: #666; margin-bottom: 5px;" id="pdf-ai-summary">IA & Automation</div>
+                    <div style="font-size: 0.8em; color: #555;" id="pdf-ai-details">-</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; padding: 30px; border-top: 2px solid #e0e0e0; color: #666; font-size: 0.9em;">
+            <p style="margin-bottom: 10px;">Pour toute question concernant cet audit ou pour obtenir un devis personnalisé :</p>
+            <p style="font-size: 1.2em; font-weight: 600; color: #1a1a2e;">contact@restoboom.com</p>
+            <p style="margin-top: 20px;">www.restoboom.com</p>
+        </div>
+
+        <div style="text-align: center; padding: 30px; background: #1a1a2e; color: white; font-size: 0.85em;">
+            <p>© 2026 RestoBoom — Audit de Transformation Numérique QSR</p>
+            <p style="margin-top: 10px; opacity: 0.8;">Conformité Bill 96 intégrée | Français québécois natif</p>
         </div>
     </div>
 
@@ -1097,6 +1228,7 @@
                 scoreLabel: "/100",
                 recsTitle: "Recommandations Prioritaires",
                 offerMsg: "🎁 RestoBoom offre une approche intégrée: Consultation + Implantation Technique + Marketing Services + Automatisation IA. Demandez un devis personnalisé pour votre transformation.",
+                downloadPdfBtn: "📄 Télécharger le rapport PDF",
                 restartBtn: "Recommencer l'audit"
             },
             en: {
@@ -1142,6 +1274,7 @@
                 scoreLabel: "/100",
                 recsTitle: "Priority Recommendations",
                 offerMsg: "🎁 RestoBoom offers an integrated approach: Consulting + Tech Implementation + Marketing Services + AI Automation. Request a customized quote for your transformation.",
+                downloadPdfBtn: "📄 Download PDF Report",
                 restartBtn: "Restart audit"
             }
         };
@@ -1312,6 +1445,88 @@
             document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="number"], textarea').forEach(el => el.value = '');
             document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
             document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(el => el.checked = false);
+        }
+
+        function generatePDF() {
+            const results = calculateScore();
+            const t = translations[currentLang];
+
+            // Update PDF content
+            document.getElementById('pdf-title').textContent = t.pdfTitle;
+            document.getElementById('pdf-date').textContent = new Date().toLocaleDateString('fr-CA');
+            document.getElementById('pdf-total-score').textContent = results.total;
+            document.getElementById('pdf-company-name').textContent = auditResults.companyName;
+            document.getElementById('pdf-company-name-label').textContent = currentLang === 'fr' ? 'Nom de l\'entreprise' : 'Company name';
+            document.getElementById('pdf-industry').textContent = auditResults.industry;
+            document.getElementById('pdf-industry-label').textContent = currentLang === 'fr' ? 'Type d\'entreprise' : 'Business type';
+            document.getElementById('pdf-locations').textContent = auditResults.locations;
+            document.getElementById('pdf-locations-label').textContent = currentLang === 'fr' ? 'Nombre d\'emplacements' : 'Number of locations';
+            document.getElementById('pdf-revenue').textContent = auditResults.monthlyRevenue === 'Non spécifié' ? '-' : (currentLang === 'fr' ? '$' + parseInt(auditResults.monthlyRevenue).toLocaleString() : '$' + parseInt(auditResults.monthlyRevenue).toLocaleString());
+            document.getElementById('pdf-revenue-label').textContent = currentLang === 'fr' ? 'Revenus mensuels' : 'Monthly revenue';
+            document.getElementById('pdf-score-strategic').textContent = results.pillarScores.strategic;
+            document.getElementById('pdf-score-tech').textContent = results.pillarScores.tech;
+            document.getElementById('pdf-score-marketing').textContent = results.pillarScores.marketing;
+            document.getElementById('pdf-score-ai').textContent = results.pillarScores.ai;
+            document.getElementById('pdf-strategic-summary').textContent = currentLang === 'fr' ? 'Stratégie Marketing' : 'Marketing Strategy';
+            document.getElementById('pdf-tech-summary').textContent = currentLang === 'fr' ? 'Stack Technique' : 'Tech Stack';
+            document.getElementById('pdf-marketing-summary').textContent = currentLang === 'fr' ? 'Services Marketing' : 'Marketing Services';
+            document.getElementById('pdf-ai-summary').textContent = currentLang === 'fr' ? 'IA & Automation' : 'AI & Automation';
+            
+            // Populate pillar details based on form data
+            const marketingStrategy = Array.from(document.querySelectorAll('input[name="marketing-strategy"]:checked')).map(cb => cb.value);
+            const strategicSummary = marketingStrategy.length > 0 ? currentLang === 'fr' ? 'Plan marketing documenté en place' : 'Documented marketing plan in place' : '-';
+            
+            const integrations = Array.from(document.querySelectorAll('input[name="integrations"]:checked')).map(cb => cb.value);
+            const techSummary = integrations.length > 0 ? `${integrations.length} intégrations actives` : '-';
+            
+            const onlinePresence = Array.from(document.querySelectorAll('input[name="online-presence"]:checked')).map(cb => cb.value);
+            const marketingSummary = onlinePresence.length > 0 ? `${onlinePresence.length} canaux actifs` : '-';
+
+            const aiAgents = Array.from(document.querySelectorAll('input[name="ai-agents"]:checked')).map(cb => cb.value);
+            const aiSummary = aiAgents.length > 0 ? `${aiAgents.length} agents IA identifiés` : '-';
+            
+            document.getElementById('pdf-strategic-details').textContent = strategicSummary;
+            document.getElementById('pdf-tech-details').textContent = techSummary;
+            document.getElementById('pdf-marketing-details').textContent = marketingSummary;
+            document.getElementById('pdf-ai-details').textContent = aiSummary;
+
+            // Update recommendations
+            const pdfRecsList = document.getElementById('pdf-recs-list');
+            pdfRecsList.innerHTML = '';
+
+            if (results.recommendations.length === 0) {
+                const li = document.createElement('li');
+                li.textContent = currentLang === 'fr' ? 'Excellent! Votre entreprise est très mature numériquement.' : 'Excellent! Your business is digitally very mature.';
+                pdfRecsList.appendChild(li);
+            } else {
+                results.recommendations.forEach(rec => {
+                    const li = document.createElement('li');
+                    li.textContent = rec;
+                    li.style.padding = '10px 0';
+                    li.style.borderBottom = '1px solid #e0e0e0';
+                    pdfRecsList.appendChild(li);
+                });
+            }
+
+            document.getElementById('pdf-offer-desc').textContent = currentLang === 'fr' 
+                ? 'Basé sur cet audit, RestoBoom offre une approche intégrée couvrant vos 4 piliers de maturité numérique :'
+                : 'Based on this audit, RestoBoom offers an integrated approach covering your 4 digital maturity pillars :';
+
+            // Generate PDF
+            const element = document.getElementById('pdf-report');
+            element.style.display = 'block';
+
+            const opt = {
+                margin: 10,
+                filename: `RestoBoom-Digital-Transformation-${auditResults.companyName.replace(/\s+/g, '-')}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                element.style.display = 'none';
+            });
         }
 
         // Initialize
