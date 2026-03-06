@@ -1,14 +1,261 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RestoBoom Audit</title>
-    <script>
-        window.location.href = 'mini-audit-questionnaire.html';
-    </script>
+    <title>RestoBoom — Évaluations Gratuites</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+        }
+
+        .card-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card h2 {
+            color: #1a1a2e;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .card-features li {
+            padding: 8px 0;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-features li:before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .card-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .card:hover .card-btn {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .language-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .language-toggle button {
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .language-toggle button:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <p>Redirecting to RestoBoom Audit...</p>
+    <div class="language-toggle">
+        <button onclick="toggleLanguage()">FR/EN</button>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 id="title">RestoBoom — Évaluations Gratuites</h1>
+            <p id="subtitle">Choisissez l'évaluation adaptée à vos besoins</p>
+        </div>
+
+        <div class="cards">
+            <a href="mini-audit-questionnaire-pdf.html" class="card">
+                <span class="card-icon">🍽️</span>
+                <h2 id="restaurant-title">Audit Restaurant QSR</h2>
+                <p id="restaurant-desc">Évaluation complète de votre présence en ligne: Google Business Profile, réseaux sociaux, SEO local et programme de fidélité.</p>
+                <ul class="card-features">
+                    <li id="restaurant-feat-1">Google Business Profile & avis</li>
+                    <li id="restaurant-feat-2">Réseaux sociaux (Facebook, Instagram)</li>
+                    <li id="restaurant-feat-3">SEO local & annuaires</li>
+                    <li id="restaurant-feat-4">Programme de fidélité</li>
+                </ul>
+                <div class="card-btn" id="restaurant-btn">Démarrer l'audit →</div>
+            </a>
+
+            <a href="voice-ai-questionnaire.html" class="card">
+                <span class="card-icon">📞</span>
+                <h2 id="voice-title">Évaluation Voice AI</h2>
+                <p id="voice-desc">Analyse de votre système téléphonique et potentiel d'automatisation avec IA vocale bilingue FR/EN.</p>
+                <ul class="card-features">
+                    <li id="voice-feat-1">Système téléphonique actuel</li>
+                    <li id="voice-feat-2">Volume d'appels & appels manqués</li>
+                    <li id="voice-feat-3">Cas d'utilisation IA vocale</li>
+                    <li id="voice-feat-4">Exigences techniques & intégrations</li>
+                </ul>
+                <div class="card-btn" id="voice-btn">Démarrer l'évaluation →</div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        let currentLang = 'fr';
+
+        const translations = {
+            fr: {
+                title: "RestoBoom — Évaluations Gratuites",
+                subtitle: "Choisissez l'évaluation adaptée à vos besoins",
+                restaurantTitle: "Audit Restaurant QSR",
+                restaurantDesc: "Évaluation complète de votre présence en ligne: Google Business Profile, réseaux sociaux, SEO local et programme de fidélité.",
+                restaurantFeat1: "Google Business Profile & avis",
+                restaurantFeat2: "Réseaux sociaux (Facebook, Instagram)",
+                restaurantFeat3: "SEO local & annuaires",
+                restaurantFeat4: "Programme de fidélité",
+                restaurantBtn: "Démarrer l'audit →",
+                voiceTitle: "Évaluation Voice AI",
+                voiceDesc: "Analyse de votre système téléphonique et potentiel d'automatisation avec IA vocale bilingue FR/EN.",
+                voiceFeat1: "Système téléphonique actuel",
+                voiceFeat2: "Volume d'appels & appels manqués",
+                voiceFeat3: "Cas d'utilisation IA vocale",
+                voiceFeat4: "Exigences techniques & intégrations",
+                voiceBtn: "Démarrer l'évaluation →"
+            },
+            en: {
+                title: "RestoBoom — Free Assessments",
+                subtitle: "Choose the assessment for your needs",
+                restaurantTitle: "QSR Restaurant Audit",
+                restaurantDesc: "Complete online presence evaluation: Google Business Profile, social media, local SEO, and loyalty program.",
+                restaurantFeat1: "Google Business Profile & reviews",
+                restaurantFeat2: "Social media (Facebook, Instagram)",
+                restaurantFeat3: "Local SEO & directories",
+                restaurantFeat4: "Loyalty program",
+                restaurantBtn: "Start audit →",
+                voiceTitle: "Voice AI Assessment",
+                voiceDesc: "Phone system analysis and automation potential with bilingual FR/EN Voice AI.",
+                voiceFeat1: "Current phone system",
+                voiceFeat2: "Call volume & missed calls",
+                voiceFeat3: "Voice AI use cases",
+                voiceFeat4: "Technical requirements & integrations",
+                voiceBtn: "Start assessment →"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'fr' ? 'en' : 'fr';
+            const t = translations[currentLang];
+
+            document.getElementById('title').textContent = t.title;
+            document.getElementById('subtitle').textContent = t.subtitle;
+            document.getElementById('restaurant-title').textContent = t.restaurantTitle;
+            document.getElementById('restaurant-desc').textContent = t.restaurantDesc;
+            document.getElementById('restaurant-feat-1').textContent = t.restaurantFeat1;
+            document.getElementById('restaurant-feat-2').textContent = t.restaurantFeat2;
+            document.getElementById('restaurant-feat-3').textContent = t.restaurantFeat3;
+            document.getElementById('restaurant-feat-4').textContent = t.restaurantFeat4;
+            document.getElementById('restaurant-btn').textContent = t.restaurantBtn;
+            document.getElementById('voice-title').textContent = t.voiceTitle;
+            document.getElementById('voice-desc').textContent = t.voiceDesc;
+            document.getElementById('voice-feat-1').textContent = t.voiceFeat1;
+            document.getElementById('voice-feat-2').textContent = t.voiceFeat2;
+            document.getElementById('voice-feat-3').textContent = t.voiceFeat3;
+            document.getElementById('voice-feat-4').textContent = t.voiceFeat4;
+            document.getElementById('voice-btn').textContent = t.voiceBtn;
+        }
+    </script>
 </body>
 </html>
