@@ -22,7 +22,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1100px;
             width: 100%;
         }
 
@@ -42,27 +42,62 @@
             opacity: 0.9;
         }
 
+        .header .pillars {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            font-size: 0.9em;
+        }
+
+        .header .pillar {
+            background: rgba(255,255,255,0.15);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
         .cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 25px;
         }
 
         .card {
             background: white;
             border-radius: 20px;
-            padding: 40px;
+            padding: 35px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             color: inherit;
             display: block;
+            position: relative;
+            overflow: hidden;
         }
 
         .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+        }
+
+        .card.featured {
+            border: 3px solid #FFD700;
+        }
+
+        .card.featured::before {
+            content: '⭐ RECOMMANDÉ';
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #FFD700;
+            color: #1a1a2e;
+            padding: 5px 12px;
+            font-size: 0.75em;
+            font-weight: bold;
+            border-bottom-left-radius: 15px;
         }
 
         .card-icon {
@@ -73,13 +108,13 @@
 
         .card h2 {
             color: #1a1a2e;
-            font-size: 1.8em;
-            margin-bottom: 10px;
+            font-size: 1.7em;
+            margin-bottom: 12px;
         }
 
         .card p {
             color: #666;
-            font-size: 1.1em;
+            font-size: 1em;
             line-height: 1.6;
             margin-bottom: 20px;
         }
@@ -93,7 +128,7 @@
             padding: 8px 0;
             color: #555;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 10px;
         }
 
@@ -102,21 +137,20 @@
             color: #28a745;
             font-weight: bold;
             font-size: 1.2em;
+            flex-shrink: 0;
         }
 
-        .card-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: 600;
-            display: inline-block;
-            transition: all 0.3s;
+        .card-features li.bonus:before {
+            content: "✨";
+            color: #667eea;
         }
 
-        .card:hover .card-btn {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        .card .subtext {
+            font-size: 0.85em;
+            color: #888;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
         }
 
         .language-toggle {
@@ -162,33 +196,65 @@
         <div class="header">
             <h1 id="title">RestoBoom — Évaluations Gratuites</h1>
             <p id="subtitle">Choisissez l'évaluation adaptée à vos besoins</p>
+            <div class="pillars">
+                <span class="pillar">📊 Stratégie</span>
+                <span class="pillar">🔧 Tech Stack</span>
+                <span class="pillar">📱 Marketing</span>
+                <span class="pillar">🤖 IA & Automation</span>
+            </div>
         </div>
 
         <div class="cards">
+            <a href="comprehensive-qsr-audit.html" class="card featured">
+                <span class="card-icon">🎯</span>
+                <h2 id="comprehensive-title">Audit QSR Complet</h2>
+                <p id="comprehensive-desc">Évaluation holistique couvrant TOUS vos services: Stratégie Marketing, Stack Technique, Marketing Digital, et Automatisation IA avec conformité Bill 96.</p>
+                <ul class="card-features">
+                    <li id="comprehensive-feat-1">4 piliers complets évalués</li>
+                    <li id="comprehensive-feat-2">Score par pilier (0-25 chacun)</li>
+                    <li id="comprehensive-feat-3">Recommandations personnalisées</li>
+                    <li id="comprehensive-feat-4">🇨🇦 Conformité Bill 96 intégrée</li>
+                    <li id="comprehensive-feat-5">📊 Score total de maturité numérique</li>
+                    <li class="bonus" id="comprehensive-feat-6">✨ Pour entreprises multi-emplacements</li>
+                </ul>
+                <div class="subtext" id="comprehensive-subtext">
+                    <strong>Recommended:</strong> Évaluation complète pour les réseaux de franchises et entreprises matures cherchant une transformation holistique.
+                </div>
+                <div style="margin-top: 20px; text-align: center;">
+                    <span style="background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%); color: white; padding: 12px 30px; border-radius: 8px; font-weight: bold;">Démarrer l'audit complet →</span>
+                </div>
+            </a>
+
+            <a href="voice-ai-questionnaire.html" class="card">
+                <span class="card-icon">📞</span>
+                <h2 id="voice-title">Évaluation Voice AI</h2>
+                <p id="voice-desc">Analyse approfondie de votre système téléphonique et potentiel d'automatisation avec IA vocale bilingue FR/EN.</p>
+                <ul class="card-features">
+                    <li id="voice-feat-1">Système téléphonique actuel</li>
+                    <li id="voice-feat-2">Volume d'appels & appels manqués</li>
+                    <li id="voice-feat-3">ROI calculator détaillé</li>
+                    <li id="voice-feat-4">Cas d'utilisation IA vocale</li>
+                    <li id="voice-feat-5">Exigences techniques & intégrations</li>
+                    <li class="bonus" id="voice-feat-6">🇨🇦 Français québécois natif</li>
+                </ul>
+                <div class="subtext" id="voice-subtext">
+                    <strong>Focus:</strong> Pour entreprises prioritaires sur l'automatisation téléphonique et l'implantation Voice AI.
+                </div>
+            </a>
+
             <a href="mini-audit-questionnaire-pdf.html" class="card">
                 <span class="card-icon">🍽️</span>
                 <h2 id="restaurant-title">Audit Restaurant QSR</h2>
-                <p id="restaurant-desc">Évaluation complète de votre présence en ligne: Google Business Profile, réseaux sociaux, SEO local et programme de fidélité.</p>
+                <p id="restaurant-desc">Évaluation rapide de votre présence en ligne: Google Business Profile, réseaux sociaux, SEO local et programme de fidélité.</p>
                 <ul class="card-features">
                     <li id="restaurant-feat-1">Google Business Profile & avis</li>
                     <li id="restaurant-feat-2">Réseaux sociaux (Facebook, Instagram)</li>
                     <li id="restaurant-feat-3">SEO local & annuaires</li>
                     <li id="restaurant-feat-4">Programme de fidélité</li>
                 </ul>
-                <div class="card-btn" id="restaurant-btn">Démarrer l'audit →</div>
-            </a>
-
-            <a href="voice-ai-questionnaire.html" class="card">
-                <span class="card-icon">📞</span>
-                <h2 id="voice-title">Évaluation Voice AI</h2>
-                <p id="voice-desc">Analyse de votre système téléphonique et potentiel d'automatisation avec IA vocale bilingue FR/EN.</p>
-                <ul class="card-features">
-                    <li id="voice-feat-1">Système téléphonique actuel</li>
-                    <li id="voice-feat-2">Volume d'appels & appels manqués</li>
-                    <li id="voice-feat-3">Cas d'utilisation IA vocale</li>
-                    <li id="voice-feat-4">Exigences techniques & intégrations</li>
-                </ul>
-                <div class="card-btn" id="voice-btn">Démarrer l'évaluation →</div>
+                <div class="subtext" id="restaurant-subtext">
+                    <strong>Focus:</strong> Pour restaurants individuels et petites chaînes cherchant à améliorer leur présence en ligne.
+                </div>
             </a>
         </div>
     </div>
@@ -200,38 +266,60 @@
             fr: {
                 title: "RestoBoom — Évaluations Gratuites",
                 subtitle: "Choisissez l'évaluation adaptée à vos besoins",
+                comprehensiveTitle: "Audit QSR Complet",
+                comprehensiveDesc: "Évaluation holistique couvrant TOUS vos services: Stratégie Marketing, Stack Technique, Marketing Digital, et Automatisation IA avec conformité Bill 96.",
+                comprehensiveFeat1: "4 piliers complets évalués",
+                comprehensiveFeat2: "Score par pilier (0-25 chacun)",
+                comprehensiveFeat3: "Recommandations personnalisées",
+                comprehensiveFeat4: "🇨🇦 Conformité Bill 96 intégrée",
+                comprehensiveFeat5: "📊 Score total de maturité numérique",
+                comprehensiveFeat6: "✨ Pour entreprises multi-emplacements",
+                comprehensiveSubtext: "Recommended: Évaluation complète pour les réseaux de franchises et entreprises matures cherchant une transformation holistique.",
+                voiceTitle: "Évaluation Voice AI",
+                voiceDesc: "Analyse approfondie de votre système téléphonique et potentiel d'automatisation avec IA vocale bilingue FR/EN.",
+                voiceFeat1: "Système téléphonique actuel",
+                voiceFeat2: "Volume d'appels & appels manqués",
+                voiceFeat3: "ROI calculator détaillé",
+                voiceFeat4: "Cas d'utilisation IA vocale",
+                voiceFeat5: "Exigences techniques & intégrations",
+                voiceFeat6: "🇨🇦 Français québécois natif",
+                voiceSubtext: "Focus: Pour entreprises prioritaires sur l'automatisation téléphonique et l'implantation Voice AI.",
                 restaurantTitle: "Audit Restaurant QSR",
-                restaurantDesc: "Évaluation complète de votre présence en ligne: Google Business Profile, réseaux sociaux, SEO local et programme de fidélité.",
+                restaurantDesc: "Évaluation rapide de votre présence en ligne: Google Business Profile, réseaux sociaux, SEO local et programme de fidélité.",
                 restaurantFeat1: "Google Business Profile & avis",
                 restaurantFeat2: "Réseaux sociaux (Facebook, Instagram)",
                 restaurantFeat3: "SEO local & annuaires",
                 restaurantFeat4: "Programme de fidélité",
-                restaurantBtn: "Démarrer l'audit →",
-                voiceTitle: "Évaluation Voice AI",
-                voiceDesc: "Analyse de votre système téléphonique et potentiel d'automatisation avec IA vocale bilingue FR/EN.",
-                voiceFeat1: "Système téléphonique actuel",
-                voiceFeat2: "Volume d'appels & appels manqués",
-                voiceFeat3: "Cas d'utilisation IA vocale",
-                voiceFeat4: "Exigences techniques & intégrations",
-                voiceBtn: "Démarrer l'évaluation →"
+                restaurantSubtext: "Focus: Pour restaurants individuels et petites chaînes cherchant à améliorer leur présence en ligne."
             },
             en: {
                 title: "RestoBoom — Free Assessments",
                 subtitle: "Choose the assessment for your needs",
+                comprehensiveTitle: "Complete QSR Audit",
+                comprehensiveDesc: "Holistic evaluation covering ALL your services: Marketing Strategy, Tech Stack, Digital Marketing, and AI Automation with Bill 96 compliance.",
+                comprehensiveFeat1: "4 complete pillars evaluated",
+                comprehensiveFeat2: "Score per pillar (0-25 each)",
+                comprehensiveFeat3: "Personalized recommendations",
+                comprehensiveFeat4: "🇨🇦 Bill 96 compliance integrated",
+                comprehensiveFeat5: "📊 Total digital maturity score",
+                comprehensiveFeat6: "✨ For multi-location businesses",
+                comprehensiveSubtext: "Recommended: Complete assessment for franchise networks and mature businesses seeking holistic transformation.",
+                voiceTitle: "Voice AI Assessment",
+                voiceDesc: "In-depth phone system analysis and automation potential with bilingual FR/EN Voice AI.",
+                voiceFeat1: "Current phone system",
+                voiceFeat2: "Call volume & missed calls",
+                voiceFeat3: "Detailed ROI calculator",
+                voiceFeat4: "Voice AI use cases",
+                voiceFeat5: "Technical requirements & integrations",
+                voiceFeat6: "🇨🇦 Native Quebec French",
+                voiceSubtext: "Focus: For businesses prioritizing phone automation and Voice AI implementation.",
                 restaurantTitle: "QSR Restaurant Audit",
-                restaurantDesc: "Complete online presence evaluation: Google Business Profile, social media, local SEO, and loyalty program.",
+                restaurantDesc: "Quick online presence evaluation: Google Business Profile, social media, local SEO, and loyalty program.",
                 restaurantFeat1: "Google Business Profile & reviews",
                 restaurantFeat2: "Social media (Facebook, Instagram)",
                 restaurantFeat3: "Local SEO & directories",
                 restaurantFeat4: "Loyalty program",
-                restaurantBtn: "Start audit →",
-                voiceTitle: "Voice AI Assessment",
-                voiceDesc: "Phone system analysis and automation potential with bilingual FR/EN Voice AI.",
-                voiceFeat1: "Current phone system",
-                voiceFeat2: "Call volume & missed calls",
-                voiceFeat3: "Voice AI use cases",
-                voiceFeat4: "Technical requirements & integrations",
-                voiceBtn: "Start assessment →"
+                restaurantSubtext: "Focus: For independent restaurants and small chains looking to improve online presence."
             }
         };
 
@@ -241,20 +329,31 @@
 
             document.getElementById('title').textContent = t.title;
             document.getElementById('subtitle').textContent = t.subtitle;
-            document.getElementById('restaurant-title').textContent = t.restaurantTitle;
-            document.getElementById('restaurant-desc').textContent = t.restaurantDesc;
-            document.getElementById('restaurant-feat-1').textContent = t.restaurantFeat1;
-            document.getElementById('restaurant-feat-2').textContent = t.restaurantFeat2;
-            document.getElementById('restaurant-feat-3').textContent = t.restaurantFeat3;
-            document.getElementById('restaurant-feat-4').textContent = t.restaurantFeat4;
-            document.getElementById('restaurant-btn').textContent = t.restaurantBtn;
+            document.getElementById('comprehensive-title').textContent = t.comprehensiveTitle;
+            document.getElementById('comprehensive-desc').textContent = t.comprehensiveDesc;
+            document.getElementById('comprehensive-feat-1').textContent = t.comprehensiveFeat1;
+            document.getElementById('comprehensive-feat-2').textContent = t.comprehensiveFeat2;
+            document.getElementById('comprehensive-feat-3').textContent = t.comprehensiveFeat3;
+            document.getElementById('comprehensive-feat-4').textContent = t.comprehensiveFeat4;
+            document.getElementById('comprehensive-feat-5').textContent = t.comprehensiveFeat5;
+            document.getElementById('comprehensive-feat-6').textContent = t.comprehensiveFeat6;
+            document.getElementById('comprehensive-subtext').textContent = t.comprehensiveSubtext;
             document.getElementById('voice-title').textContent = t.voiceTitle;
             document.getElementById('voice-desc').textContent = t.voiceDesc;
             document.getElementById('voice-feat-1').textContent = t.voiceFeat1;
             document.getElementById('voice-feat-2').textContent = t.voiceFeat2;
             document.getElementById('voice-feat-3').textContent = t.voiceFeat3;
             document.getElementById('voice-feat-4').textContent = t.voiceFeat4;
-            document.getElementById('voice-btn').textContent = t.voiceBtn;
+            document.getElementById('voice-feat-5').textContent = t.voiceFeat5;
+            document.getElementById('voice-feat-6').textContent = t.voiceFeat6;
+            document.getElementById('voice-subtext').textContent = t.voiceSubtext;
+            document.getElementById('restaurant-title').textContent = t.restaurantTitle;
+            document.getElementById('restaurant-desc').textContent = t.restaurantDesc;
+            document.getElementById('restaurant-feat-1').textContent = t.restaurantFeat1;
+            document.getElementById('restaurant-feat-2').textContent = t.restaurantFeat2;
+            document.getElementById('restaurant-feat-3').textContent = t.restaurantFeat3;
+            document.getElementById('restaurant-feat-4').textContent = t.restaurantFeat4;
+            document.getElementById('restaurant-subtext').textContent = t.restaurantSubtext;
         }
     </script>
 </body>
