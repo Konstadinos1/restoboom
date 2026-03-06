@@ -1288,7 +1288,69 @@
 
         function updateProgress() {
             const progress = ((currentSection) / totalSections) * 100;
-            document.getElementById('progress').style.width = progress + '%';
+            document.getElementById('intro-title').textContent = t.introTitle;
+            document.getElementById('intro-desc').textContent = t.introDesc;
+            document.getElementById('company-name-label').textContent = t.companyNameLabel;
+            document.getElementById('industry-label').textContent = t.industryLabel;
+            document.getElementById('locations-label').textContent = t.locationsLabel;
+            document.getElementById('monthly-revenue-label').textContent = t.monthlyRevenueLabel;
+            document.getElementById('start-btn').textContent = t.startBtn;
+            document.getElementById('back-fr').textContent = t.back;
+            document.getElementById('next-fr').textContent = t.next;
+            document.getElementById('strategic-title').textContent = t.strategicTitle;
+            document.getElementById('strategic-desc').textContent = t.strategicDesc;
+            document.getElementById('marketing-strategy-label').textContent = t.marketingStrategyLabel;
+            document.getElementById('promotional-freq-label').textContent = t.promotionalFreqLabel;
+            document.getElementById('strategic-tip').textContent = t.strategicTip;
+            document.getElementById('tech-title').textContent = t.techTitle;
+            document.getElementById('tech-desc').textContent = t.techDesc;
+            document.getElementById('pos-label').textContent = t.posLabel;
+            document.getElementById('crm-label').textContent = t.crmLabel;
+            document.getElementById('loyalty-label').textContent = t.loyaltyLabel;
+            document.getElementById('integrations-label').textContent = t.integrationsLabel;
+            document.getElementById('tech-maturity-label').textContent = t.techMaturityLabel;
+            document.getElementById('marketing-section-title').textContent = t.marketingSectionTitle;
+            document.getElementById('marketing-section-desc').textContent = t.marketingSectionDesc;
+            document.getElementById('online-presence-label').textContent = t.onlinePresenceLabel;
+            document.getElementById('social-freq-label').textContent = t.socialFreqLabel;
+            document.getElementById('email-freq-label').textContent = t.emailFreqLabel;
+            document.getElementById('review-management-label').textContent = t.reviewManagementLabel;
+            document.getElementById('marketing-tip').textContent = t.marketingTip;
+            document.getElementById('automation-title').textContent = t.automationTitle;
+            document.getElementById('automation-desc').textContent = t.automationDesc;
+            document.getElementById('phone-system-label').textContent = t.phoneSystemLabel;
+            document.getElementById('daily-calls-label').textContent = t.dailyCallsLabel;
+            document.getElementById('missed-calls-label').textContent = t.missedCallsLabel;
+            document.getElementById('call-handling-label').textContent = t.callHandlingLabel;
+            document.getElementById('ai-interest-label').textContent = t.aiInterestLabel;
+            document.getElementById('automation-tip').textContent = t.automationTip;
+            document.getElementById('bill96-title').textContent = t.bill96Title;
+            document.getElementById('bill96-desc').textContent = t.bill96Desc;
+            document.getElementById('bill96-info').textContent = t.bill96Info;
+            document.getElementById('language-priority-label').textContent = t.languagePriorityLabel;
+            document.getElementById('current-compliance-label').textContent = t.currentComplianceLabel;
+            document.getElementById('bill96-benefit').textContent = t.bill96Benefit;
+            document.getElementById('contact-title').textContent = t.contactTitle;
+            document.getElementById('contact-desc').textContent = t.contactDesc;
+            document.getElementById('contact-name-label').textContent = t.contactNameLabel;
+            document.getElementById('contact-role-label').textContent = t.contactRoleLabel;
+            document.getElementById('contact-email-label').textContent = t.contactEmailLabel;
+            document.getElementById('contact-phone-label').textContent = t.contactPhoneLabel;
+            document.getElementById('primary-challenge-label').textContent = t.primaryChallengeLabel;
+            document.getElementById('goals-label').textContent = t.goalsLabel;
+            document.getElementById('submit-fr').textContent = t.submitBtn;
+            document.getElementById('back5-fr').textContent = t.back;
+            document.getElementById('next5-fr').textContent = t.next;
+            document.getElementById('results-title').textContent = t.resultsTitle;
+            document.getElementById('results-subtitle').textContent = t.resultsSubtitle;
+            document.getElementById('score-label-fr').textContent = t.scoreLabel;
+            document.getElementById('recs-title').textContent = t.recsTitle;
+            document.getElementById('offer-msg').textContent = t.offerMsg;
+            document.getElementById('download-pdf-fr').textContent = t.downloadPdfBtn;
+            document.getElementById('restart-fr').textContent = t.restartBtn;
+        }
+
+        function updateProgress() {            document.getElementById('progress').style.width = progress + '%';
         }
 
         function showSection(sectionNum) {
