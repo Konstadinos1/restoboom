@@ -25,6 +25,7 @@ Thumbs.db
 # Output files
 *.csv
 !scripts/sample-reviews.csv
+Audit_RestoBoom_*.pdf
 
 # API keys and secrets
 *.key
